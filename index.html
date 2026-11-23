@@ -1,57 +1,1435 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="./resources/images/logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Finland Malayalee Association</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              'brand-primary': '#F59E0B', // amber-500
-              'brand-secondary': '#F97316', // orange-500
-              'brand-accent': '#FBBF24', // amber-400
-              'brand-dark': '#44403C', // stone-700
-              'brand-light': '#FFFBEB', // amber-50
-            },
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-            },
-          },
-        },
-      }
-    </script>
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <style>
-      html {
-        scroll-behavior: smooth;
-        scroll-padding-top: 80px; /* Offset for sticky header height */
-      }
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .animate-on-scroll {
-        opacity: 0;
-      }
-      .animate-on-scroll.is-visible {
-        opacity: 1;
-        animation: fadeInUp 0.8s ease-out forwards;
-      }
-    </style>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finland Malayalee Association – FIMA</title>
+  <link rel="icon" type="image/png" href="/resources/images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Kerala Color System ─────────────────────────────── */
+    :root {
+      --green-900: #0d2b1a;
+      --green-800: #14401f;
+      --green-700: #1a5c2a;
+      --green-600: #1f7035;
+      --green-500: #2d8f4a;
+      --green-400: #4aaa65;
+      --green-100: #d4f0dc;
+      --green-50:  #f0faf3;
 
-  <script type="module" crossorigin src="./assets/index-BT8eWB_h.js"></script>
+      --red-900:   #4a0a0a;
+      --red-800:   #6b1010;
+      --red-700:   #8b1a1a;
+      --red-600:   #a52020;
+      --red-500:   #c0392b;
+      --red-400:   #e05252;
+      --red-100:   #fddcdc;
+
+      --gold:      #c9a84c;
+      --gold-light:#f0d898;
+
+      --cream:     #f8f4ef;
+      --cream-dark:#ede7df;
+      --white:     #ffffff;
+
+      --text-dark: #1a1a1a;
+      --text-mid:  #3d3d3d;
+      --text-muted:#6b6b6b;
+
+      --nav-h: 68px;
+    }
+
+    /* ─── Reset & Base ────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font: inherit; }
+
+    /* ─── Navigation ──────────────────────────────────────── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(13, 43, 26, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.25);
+      display: flex; align-items: center;
+      padding: 0 1.5rem;
+      transition: background 0.3s;
+    }
+    .nav-inner {
+      max-width: 1280px; width: 100%; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.75rem;
+      cursor: pointer;
+    }
+    .nav-logo img { height: 40px; width: 40px; border-radius: 50%; object-fit: cover; }
+    .nav-logo-text {
+      font-weight: 700; font-size: 1rem; color: var(--white);
+      letter-spacing: 0.01em; line-height: 1.2;
+    }
+    .nav-logo-text span { color: var(--gold); display: block; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 0.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block; padding: 0.45rem 0.85rem;
+      font-size: 0.875rem; font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-links a.active {
+      color: var(--gold);
+      background: rgba(201,168,76,0.12);
+    }
+    .nav-links a.active::after {
+      content: ''; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
+      width: 16px; height: 2px; background: var(--gold); border-radius: 2px;
+    }
+    .nav-cta {
+      background: var(--red-700);
+      color: #fff !important;
+      padding: 0.45rem 1.1rem !important;
+      border-radius: 6px !important;
+      font-weight: 600 !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: var(--red-600) !important; transform: translateY(-1px); color:#fff !important; }
+
+    /* Mobile burger */
+    .burger { display: none; flex-direction: column; gap: 5px; padding: 6px; cursor: pointer; }
+    .burger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: 0.3s; }
+    .mobile-menu {
+      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
+      background: var(--green-900);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      padding: 1rem 1.5rem 1.5rem;
+      flex-direction: column; gap: 0.25rem;
+      z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 0.6rem 0.75rem; border-radius: 6px;
+      font-size: 0.95rem; font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      transition: color 0.2s, background 0.2s;
+    }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--gold); background: rgba(201,168,76,0.1); }
+
+    /* ─── Page System ─────────────────────────────────────── */
+    .page { display: none; min-height: calc(100vh - var(--nav-h)); padding-top: var(--nav-h); }
+    .page.active { display: block; }
+
+    /* ─── Shared Utilities ────────────────────────────────── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    .section-pad { padding: 5rem 0; }
+    .section-pad-sm { padding: 3rem 0; }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--red-600);
+      margin-bottom: 0.75rem;
+    }
+    .section-label::before {
+      content: ''; display: block; width: 20px; height: 2px; background: var(--red-600); border-radius: 2px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700; color: var(--green-900); line-height: 1.2;
+    }
+    .section-sub {
+      margin-top: 0.75rem; font-size: 1.05rem;
+      color: var(--text-muted); line-height: 1.7; max-width: 640px;
+    }
+    .divider {
+      width: 56px; height: 3px;
+      background: linear-gradient(90deg, var(--red-700), var(--gold));
+      border-radius: 2px; margin-top: 1.25rem;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--red-700); color: #fff;
+      padding: 0.75rem 1.75rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 600;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(139,26,26,0.3);
+    }
+    .btn-primary:hover { background: var(--red-600); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,26,26,0.4); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--white);
+      padding: 0.75rem 1.75rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 600;
+      border: 2px solid rgba(255,255,255,0.5);
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.8); transform: translateY(-2px); }
+
+    .btn-green {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--green-700); color: #fff;
+      padding: 0.75rem 1.75rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-green:hover { background: var(--green-600); transform: translateY(-2px); }
+
+    /* card */
+    .card {
+      background: var(--white); border-radius: 16px;
+      border: 1px solid var(--cream-dark);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      overflow: hidden; transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+
+    /* ─── PAGE: Home ──────────────────────────────────────── */
+    #page-home { padding-top: 0; }
+
+    .hero {
+      position: relative; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--green-900) 0%, #0a2015 50%, var(--red-900) 100%);
+    }
+    .hero-pattern {
+      position: absolute; inset: 0; opacity: 0.07;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.25); }
+    .hero-content { position: relative; z-index: 2; padding: 1.5rem; max-width: 800px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.4);
+      color: var(--gold-light); padding: 0.4rem 1rem; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 800; color: #fff; line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .hero-title span { color: var(--gold); }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: rgba(255,255,255,0.8); line-height: 1.7;
+      margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      color: rgba(255,255,255,0.5); font-size: 0.75rem; letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero-scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%,100%{opacity:0.5;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.1)} }
+
+    /* Stats strip */
+    .stats-strip {
+      background: var(--green-900);
+      border-top: 1px solid rgba(201,168,76,0.2);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; max-width: 900px; margin: 0 auto;
+    }
+    .stat-item {
+      padding: 2rem 1rem; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-size: 2rem; font-weight: 800; color: var(--gold);
+      font-family: 'Playfair Display', serif;
+    }
+    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 0.3rem; letter-spacing: 0.05em; }
+
+    /* Home highlights */
+    .highlights-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .highlight-card {
+      background: var(--white); border-radius: 16px;
+      border: 1px solid var(--cream-dark);
+      padding: 2rem; position: relative; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .highlight-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.1); }
+    .highlight-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .highlight-card.green::before { background: linear-gradient(90deg, var(--green-700), var(--green-500)); }
+    .highlight-card.red::before   { background: linear-gradient(90deg, var(--red-700), var(--red-500)); }
+    .highlight-card.gold::before  { background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+
+    .highlight-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.25rem;
+    }
+    .highlight-icon.green { background: var(--green-50); }
+    .highlight-icon.red   { background: var(--red-100); }
+    .highlight-icon.gold  { background: #fdf8ed; }
+    .highlight-title { font-size: 1.1rem; font-weight: 700; color: var(--green-900); margin-bottom: 0.5rem; }
+    .highlight-desc  { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ─── PAGE: About ─────────────────────────────────────── */
+    .about-hero {
+      background: linear-gradient(135deg, var(--green-900), var(--green-800));
+      padding: 5rem 0 4rem; color: white; text-align: center;
+    }
+    .about-hero .section-label { color: var(--gold); }
+    .about-hero .section-label::before { background: var(--gold); }
+    .about-hero .section-title { color: var(--white); }
+    .about-hero .section-sub { color: rgba(255,255,255,0.75); margin: 0 auto; }
+
+    .about-body { background: var(--cream); }
+    .about-card {
+      background: var(--white); border-radius: 20px;
+      border: 1px solid var(--cream-dark);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      padding: 3rem 3.5rem;
+    }
+    .about-para {
+      font-size: 1.08rem; line-height: 1.9; color: var(--text-mid);
+      margin-bottom: 1.5rem;
+    }
+    .about-para:last-of-type { margin-bottom: 0; }
+
+    .about-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
+    .pillar {
+      text-align: center; padding: 1.75rem 1rem;
+      background: var(--green-50);
+      border: 1px solid var(--green-100);
+      border-radius: 14px;
+    }
+    .pillar-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .pillar-title { font-size: 0.95rem; font-weight: 700; color: var(--green-900); }
+    .pillar-desc  { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.4rem; }
+
+    /* ─── PAGE: Committee ─────────────────────────────────── */
+    .committee-hero {
+      background: linear-gradient(135deg, var(--red-900), var(--red-800));
+      padding: 5rem 0 4rem; color: white; text-align: center;
+    }
+    .committee-hero .section-label { color: var(--gold); }
+    .committee-hero .section-label::before { background: var(--gold); }
+    .committee-hero .section-title { color: var(--white); }
+    .committee-hero .section-sub { color: rgba(255,255,255,0.75); margin: 0 auto; }
+
+    .committee-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .member-card {
+      border-radius: 16px; overflow: hidden;
+      position: relative; aspect-ratio: 3/4;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .member-card:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(0,0,0,0.2); }
+    .member-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .member-card:hover img { transform: scale(1.05); }
+    .member-card-overlay {
+      position: absolute; inset-x: 0; bottom: 0;
+      background: linear-gradient(to top, rgba(10,30,16,0.95) 0%, rgba(10,30,16,0.6) 50%, transparent 100%);
+      padding: 2rem 1.25rem 1.25rem;
+    }
+    .member-name { font-size: 1rem; font-weight: 700; color: #fff; }
+    .member-role {
+      font-size: 0.78rem; color: var(--gold); font-weight: 500;
+      margin-top: 0.25rem; letter-spacing: 0.03em;
+    }
+    .member-badge {
+      display: inline-block; margin-top: 0.4rem;
+      padding: 0.2rem 0.6rem; border-radius: 50px;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em;
+    }
+    .badge-president { background: rgba(201,168,76,0.25); color: var(--gold-light); }
+    .badge-exec      { background: rgba(26,92,42,0.4); color: #7dd89a; }
+    .badge-member    { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+
+    /* ─── PAGE: Media ─────────────────────────────────────── */
+    .media-hero {
+      background: linear-gradient(135deg, var(--green-800), var(--green-900));
+      padding: 5rem 0 4rem; color: white; text-align: center;
+    }
+    .media-hero .section-label { color: var(--gold); }
+    .media-hero .section-label::before { background: var(--gold); }
+    .media-hero .section-title { color: var(--white); }
+    .media-hero .section-sub { color: rgba(255,255,255,0.75); margin: 0 auto; }
+
+    .media-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .reel-card {
+      border-radius: 14px; overflow: hidden; position: relative;
+      aspect-ratio: 9/14; background: var(--green-900);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .reel-card:hover { transform: scale(1.03); box-shadow: 0 10px 32px rgba(0,0,0,0.25); }
+    .reel-card img { width: 100%; height: 100%; object-fit: cover; }
+    .reel-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem;
+      transition: background 0.3s;
+    }
+    .reel-card:hover .reel-overlay { background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%); }
+    .reel-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.8);
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s, transform 0.3s;
+    }
+    .reel-card:hover .reel-play { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    .reel-play svg { width: 20px; height: 20px; fill: var(--red-700); margin-left: 2px; }
+    .reel-title { font-size: 0.85rem; font-weight: 600; color: #fff; }
+    .reel-ig { font-size: 0.72rem; color: rgba(255,255,255,0.6); margin-top: 0.2rem; }
+
+    /* ─── PAGE: Events ────────────────────────────────────── */
+    .events-hero {
+      background: linear-gradient(135deg, var(--red-900), var(--green-900));
+      padding: 5rem 0 4rem; color: white; text-align: center;
+    }
+    .events-hero .section-label { color: var(--gold); }
+    .events-hero .section-label::before { background: var(--gold); }
+    .events-hero .section-title { color: var(--white); }
+    .events-hero .section-sub { color: rgba(255,255,255,0.75); margin: 0 auto; }
+
+    .events-list { display: flex; flex-direction: column; gap: 1.25rem; }
+    .event-card {
+      background: var(--white); border-radius: 16px;
+      border: 1px solid var(--cream-dark);
+      padding: 1.75rem 2rem;
+      display: flex; align-items: center; gap: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .event-card:hover { transform: translateX(4px); box-shadow: 0 6px 24px rgba(0,0,0,0.1); }
+    .event-date-box {
+      flex-shrink: 0; width: 72px; height: 72px;
+      background: linear-gradient(135deg, var(--green-800), var(--green-700));
+      border-radius: 14px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; color: white;
+    }
+    .event-day   { font-size: 1.5rem; font-weight: 800; line-height: 1; }
+    .event-month { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.8; }
+    .event-year  { font-size: 0.65rem; opacity: 0.65; }
+    .event-title { font-size: 1.05rem; font-weight: 700; color: var(--green-900); }
+    .event-desc  { font-size: 0.88rem; color: var(--text-muted); margin-top: 0.3rem; }
+    .event-tag {
+      margin-top: 0.6rem; display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.75rem; font-weight: 600; color: var(--green-700);
+      background: var(--green-50); border: 1px solid var(--green-100);
+      padding: 0.25rem 0.65rem; border-radius: 50px;
+    }
+
+    .no-events {
+      text-align: center; padding: 4rem 2rem;
+      color: var(--text-muted);
+    }
+    .no-events-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+
+    /* ─── PAGE: Finland Info ──────────────────────────────── */
+    .info-hero {
+      background: linear-gradient(135deg, var(--green-900), var(--red-900));
+      padding: 5rem 0 4rem; color: white; text-align: center;
+    }
+    .info-hero .section-label { color: var(--gold); }
+    .info-hero .section-label::before { background: var(--gold); }
+    .info-hero .section-title { color: var(--white); }
+    .info-hero .section-sub { color: rgba(255,255,255,0.75); margin: 0 auto; }
+
+    .info-filter-bar {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem;
+    }
+    .filter-btn {
+      padding: 0.45rem 1.1rem; border-radius: 50px; font-size: 0.85rem;
+      font-weight: 500; border: 2px solid var(--cream-dark);
+      background: var(--white); color: var(--text-mid);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--green-500); color: var(--green-700); }
+    .filter-btn.active { background: var(--green-800); color: #fff; border-color: var(--green-800); }
+
+    .info-search {
+      position: relative; margin-bottom: 1.5rem; max-width: 400px;
+    }
+    .info-search input {
+      width: 100%; padding: 0.65rem 1rem 0.65rem 2.75rem;
+      border: 2px solid var(--cream-dark); border-radius: 10px;
+      font-size: 0.9rem; background: var(--white); color: var(--text-dark);
+      outline: none; transition: border-color 0.2s;
+    }
+    .info-search input:focus { border-color: var(--green-500); }
+    .info-search-icon {
+      position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); pointer-events: none;
+    }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .info-card {
+      background: var(--white); border-radius: 14px;
+      border: 1px solid var(--cream-dark); padding: 1.5rem;
+      display: flex; flex-direction: column; gap: 0.75rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+    .info-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); border-color: var(--green-200,#a8d5b5); }
+    .info-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+    .info-icon {
+      width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--green-50); font-size: 1.3rem;
+    }
+    .info-cat {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--red-600);
+      background: var(--red-100); padding: 0.2rem 0.6rem; border-radius: 50px;
+    }
+    .info-title { font-size: 0.95rem; font-weight: 700; color: var(--green-900); }
+    .info-desc  { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+    .info-link  { font-size: 0.8rem; color: var(--green-600); font-weight: 600; display: flex; align-items: center; gap: 0.25rem; margin-top: auto; }
+
+    /* ─── PAGE: Contact ───────────────────────────────────── */
+    .contact-hero {
+      background: linear-gradient(135deg, var(--green-900), var(--red-900));
+      padding: 5rem 0 4rem; color: white; text-align: center;
+    }
+    .contact-hero .section-label { color: var(--gold); }
+    .contact-hero .section-label::before { background: var(--gold); }
+    .contact-hero .section-title { color: var(--white); }
+    .contact-hero .section-sub { color: rgba(255,255,255,0.75); margin: 0 auto; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .contact-info-block { display: flex; flex-direction: column; gap: 1.25rem; }
+    .contact-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      background: var(--white); padding: 1.25rem 1.5rem; border-radius: 14px;
+      border: 1px solid var(--cream-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .contact-item-icon {
+      width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+      background: var(--green-50); display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+    }
+    .contact-item-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .contact-item-value { font-size: 0.95rem; font-weight: 600; color: var(--green-900); margin-top: 0.2rem; }
+
+    .social-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .social-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1rem; border-radius: 10px;
+      font-size: 0.85rem; font-weight: 600;
+      background: var(--white); border: 1.5px solid var(--cream-dark);
+      color: var(--text-mid); transition: all 0.2s;
+    }
+    .social-btn:hover { background: var(--green-50); border-color: var(--green-400); color: var(--green-800); }
+
+    /* Contact form */
+    .contact-form-wrap {
+      background: var(--white); border-radius: 20px;
+      border: 1px solid var(--cream-dark);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      padding: 2.5rem;
+    }
+    .form-title { font-size: 1.25rem; font-weight: 700; color: var(--green-900); margin-bottom: 1.5rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label {
+      display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-mid);
+      margin-bottom: 0.4rem; letter-spacing: 0.03em;
+    }
+    .form-input, .form-textarea {
+      width: 100%; padding: 0.7rem 1rem;
+      border: 2px solid var(--cream-dark); border-radius: 10px;
+      font-size: 0.9rem; color: var(--text-dark); background: var(--cream);
+      outline: none; transition: border-color 0.2s, background 0.2s;
+      font-family: inherit;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--green-500); background: var(--white);
+    }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-submit {
+      width: 100%; padding: 0.9rem;
+      background: linear-gradient(135deg, var(--red-700), var(--red-800));
+      color: white; border-radius: 10px; font-size: 0.95rem;
+      font-weight: 700; cursor: pointer; border: none;
+      font-family: inherit; transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(139,26,26,0.3);
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,26,26,0.4); }
+
+    /* ─── Footer ──────────────────────────────────────────── */
+    footer {
+      background: var(--green-900);
+      border-top: 1px solid rgba(201,168,76,0.2);
+      color: rgba(255,255,255,0.65);
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 3rem 1.5rem 1.5rem;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem; padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand-name { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .footer-brand-desc { font-size: 0.85rem; line-height: 1.6; }
+    .footer-heading { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 1rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-links a { font-size: 0.875rem; transition: color 0.2s; cursor: pointer; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 1.5rem; gap: 1rem; flex-wrap: wrap;
+      font-size: 0.8rem;
+    }
+    .footer-social { display: flex; gap: 1rem; }
+    .footer-social a {
+      color: rgba(255,255,255,0.4); transition: color 0.2s;
+      display: flex; align-items: center;
+    }
+    .footer-social a:hover { color: var(--gold); }
+
+    /* ─── Page Transitions ────────────────────────────────── */
+    .page { animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ─── Responsive ──────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .committee-grid { grid-template-columns: repeat(3, 1fr); }
+      .media-grid { grid-template-columns: repeat(3, 1fr); }
+      .info-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .burger { display: flex; }
+      .highlights-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .committee-grid { grid-template-columns: repeat(2, 1fr); }
+      .media-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; }
+      .about-pillars { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .about-card { padding: 2rem; }
+    }
+    @media (max-width: 480px) {
+      .committee-grid { grid-template-columns: 1fr 1fr; }
+      .media-grid { grid-template-columns: 1fr 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 2.2rem; }
+    }
+  </style>
 </head>
-  <body class="bg-brand-light text-brand-dark">
-    <div id="root"></div>
-  </body>
+<body>
+
+<!-- ─── NAVBAR ──────────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="navigate('home')">
+      <img src="/resources/images/logo.png" alt="FIMA Logo" />
+      <div class="nav-logo-text">
+        FIMA
+        <span>Finland Malayalee Association</span>
+      </div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" onclick="navigate('home')" data-page="home">Home</a></li>
+      <li><a href="#" onclick="navigate('about')" data-page="about">About Us</a></li>
+      <li><a href="#" onclick="navigate('committee')" data-page="committee">Committee</a></li>
+      <li><a href="#" onclick="navigate('media')" data-page="media">Media</a></li>
+      <li><a href="#" onclick="navigate('events')" data-page="events">Events</a></li>
+      <li><a href="#" onclick="navigate('info')" data-page="info">Finland Info</a></li>
+      <li><a href="#" onclick="navigate('contact')" data-page="contact" class="nav-cta">Join Us</a></li>
+    </ul>
+    <div class="burger" id="burger" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="navigate('home')">Home</a>
+  <a href="#" onclick="navigate('about')">About Us</a>
+  <a href="#" onclick="navigate('committee')">Committee</a>
+  <a href="#" onclick="navigate('media')">Media</a>
+  <a href="#" onclick="navigate('events')">Events</a>
+  <a href="#" onclick="navigate('info')">Finland Info</a>
+  <a href="#" onclick="navigate('contact')">Join Us →</a>
+</div>
+
+<!-- ─── PAGE: HOME ──────────────────────────────────────── -->
+<div id="page-home" class="page">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-pattern"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🌴 Est. 2013 · Finland</div>
+      <h1 class="hero-title">
+        Finland <span>Malayalee</span><br/>Association
+      </h1>
+      <p class="hero-sub">
+        Celebrating the vibrant culture, rich heritage, and unwavering spirit of Kerala —
+        bringing Malayalees across Finland together.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="navigate('events')">
+          🎉 Explore Events
+        </button>
+        <button class="btn-secondary" onclick="navigate('contact')">
+          Join FIMA
+        </button>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats-strip">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num">2013</div>
+        <div class="stat-label">Year Founded</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">11+</div>
+        <div class="stat-label">Committee Members</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Annual Events</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">🌿</div>
+        <div class="stat-label">Kerala Heritage</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Highlights -->
+  <section class="section-pad" style="background: var(--cream);">
+    <div class="container">
+      <div style="margin-bottom:2.5rem">
+        <div class="section-label">What We Do</div>
+        <h2 class="section-title">Community at Its Heart</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="highlights-grid">
+        <div class="highlight-card green">
+          <div class="highlight-icon green">🎭</div>
+          <div class="highlight-title">Cultural Celebrations</div>
+          <div class="highlight-desc">From grand Onam feasts to Vishu festivities — we keep Kerala's traditions alive and vibrant in Finland.</div>
+        </div>
+        <div class="highlight-card red">
+          <div class="highlight-icon red">🤝</div>
+          <div class="highlight-title">Community Support</div>
+          <div class="highlight-desc">A welcoming home for newcomers — connecting Malayalees across Finland with resources, guidance, and friendship.</div>
+        </div>
+        <div class="highlight-card gold">
+          <div class="highlight-icon gold">⚽</div>
+          <div class="highlight-title">Sports & Activities</div>
+          <div class="highlight-desc">Beach volleyball, badminton, and more — staying active together and building bonds beyond the community hall.</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:3rem">
+        <button class="btn-green" onclick="navigate('about')">Learn More About FIMA →</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── PAGE: ABOUT ─────────────────────────────────────── -->
+<div id="page-about" class="page">
+  <div class="about-hero">
+    <div class="container" style="text-align:center">
+      <div class="section-label">Our Story</div>
+      <h1 class="section-title" style="color:white;font-family:'Playfair Display',serif;">About FIMA</h1>
+      <p class="section-sub" style="color:rgba(255,255,255,0.75);margin:0.75rem auto 0;">
+        A decade of culture, community, and connection in Finland
+      </p>
+    </div>
+  </div>
+
+  <section class="section-pad about-body">
+    <div class="container" style="max-width:860px">
+      <div class="about-card">
+        <p class="about-para">
+          The Finland Malayalee Association (FIMA) was established in <strong>2013</strong> with the aim of bringing together the Malayalee community in Finland and creating a sense of belonging far from home. Since its beginnings, FIMA has grown into a platform for celebrating Kerala's rich cultural heritage, preserving traditions and building lasting connections among Malayalees across Finland.
+        </p>
+        <p class="about-para">
+          Through cultural festivals, Onam celebrations, community gatherings, sporting events and various initiatives, the association brings people of different generations together while welcoming newcomers into the community.
+        </p>
+        <p class="about-para">
+          Today, FIMA continues to serve as a bridge between our roots in Kerala and our lives in Finland, fostering friendship, unity and a shared sense of identity. Our mission is to keep our culture and traditions alive while building an inclusive, connected and vibrant community for present and future generations.
+        </p>
+        <div style="text-align:center;margin-top:2.5rem">
+          <button class="btn-primary" onclick="navigate('contact')">Join Us Today</button>
+        </div>
+      </div>
+
+      <div class="about-pillars">
+        <div class="pillar">
+          <div class="pillar-icon">🌴</div>
+          <div class="pillar-title">Cultural Heritage</div>
+          <div class="pillar-desc">Preserving Kerala's traditions, language and festivals for future generations</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🤝</div>
+          <div class="pillar-title">Unity & Belonging</div>
+          <div class="pillar-desc">Building a home away from home for every Malayalee in Finland</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🌱</div>
+          <div class="pillar-title">Future Generations</div>
+          <div class="pillar-desc">Nurturing an inclusive and vibrant community that grows with time</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── PAGE: COMMITTEE ─────────────────────────────────── -->
+<div id="page-committee" class="page">
+  <div class="committee-hero">
+    <div class="container" style="text-align:center">
+      <div class="section-label" style="color:var(--gold);justify-content:center">Our Leadership</div>
+      <h1 class="section-title" style="color:white;font-family:'Playfair Display',serif;">Executive Committee</h1>
+      <p class="section-sub" style="color:rgba(255,255,255,0.75);margin:0.75rem auto 0;">
+        2025–2027 · Dedicated individuals leading our community with passion and commitment
+      </p>
+    </div>
+  </div>
+
+  <section class="section-pad" style="background:var(--cream)">
+    <div class="container">
+      <div class="committee-grid">
+
+        <div class="member-card">
+          <img src="./resources/images/shameer.jpg" alt="Shameer Kandathil" />
+          <div class="member-card-overlay">
+            <div class="member-name">Shameer Kandathil</div>
+            <div class="member-role">President</div>
+            <span class="member-badge badge-president">President</span>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <img src="./resources/images/najil.jpg" alt="Najil Mohammed" />
+          <div class="member-card-overlay">
+            <div class="member-name">Najil Mohammed</div>
+            <div class="member-role">Vice President</div>
+            <span class="member-badge badge-exec">Vice President</span>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <img src="./resources/images/nijitha.jpg" alt="Nijitha Shukkoor" />
+          <div class="member-card-overlay">
+            <div class="member-name">Nijitha Shukkoor</div>
+            <div class="member-role">Secretary</div>
+            <span class="member-badge badge-exec">Secretary</span>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <img src="./resources/images/sunilkumar.jpg" alt="Sunilkumar Mohandas" />
+          <div class="member-card-overlay">
+            <div class="member-name">Sunilkumar Mohandas</div>
+            <div class="member-role">Joint Secretary</div>
+            <span class="member-badge badge-exec">Joint Secretary</span>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <img src="./resources/images/gibi.jpg" alt="Gibi Ramakrishnan" />
+          <div class="member-card-overlay">
+            <div class="member-name">Gibi Ramakrishnan</div>
+            <div class="member-role">Treasurer</div>
+            <span class="member-badge badge-exec">Treasurer</span>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <img src="./resources/images/najwa.jpg" alt="Najwa Abdul Rasheed" />
+          <div class="member-card-overlay">
+            <div class="member-name">Najwa Abdul Rasheed</div>
+            <div class="member-role">Auditor</div>
+            <span class="member-badge badge-exec">Auditor</span>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <img src="./resources/images/shaji.jpg" alt="Shaji Kafoor" />
+          <div class="member-card-overlay">
+            <div class="member-name">Shaji Kafoor</div>
+            <div class="member-role">Committee Member</div>
+            <span class="member-badge badge-member">Member</span>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <img src="./resources/images/reshmi.jpg" alt="Reshmi Gopalakrishnan" />
+          <div class="member-card-overlay">
+            <div class="member-name">Reshmi Gopalakrishnan</div>
+            <div class="member-role">Committee Member</div>
+            <span class="member-badge badge-member">Member</span>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <img src="./resources/images/ashith.jpg" alt="Ashith Ajarajan" />
+          <div class="member-card-overlay">
+            <div class="member-name">Ashith Ajarajan</div>
+            <div class="member-role">Committee Member</div>
+            <span class="member-badge badge-member">Member</span>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <img src="./resources/images/siju.jpg" alt="Siju Samuel" />
+          <div class="member-card-overlay">
+            <div class="member-name">Siju Samuel</div>
+            <div class="member-role">Committee Member</div>
+            <span class="member-badge badge-member">Member</span>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <img src="./resources/images/rosh.jpg" alt="Rosh Cheriyadan Joy" />
+          <div class="member-card-overlay">
+            <div class="member-name">Rosh Cheriyadan Joy</div>
+            <div class="member-role">Committee Member</div>
+            <span class="member-badge badge-member">Member</span>
+          </div>
+        </div>
+
+        <div class="member-card">
+          <img src="./resources/images/abhilash.jpeg" alt="Abhilash" />
+          <div class="member-card-overlay">
+            <div class="member-name">Abhilash</div>
+            <div class="member-role">Committee Member</div>
+            <span class="member-badge badge-member">Member</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── PAGE: MEDIA ─────────────────────────────────────── -->
+<div id="page-media" class="page">
+  <div class="media-hero">
+    <div class="container" style="text-align:center">
+      <div class="section-label" style="color:var(--gold);justify-content:center">Our Moments</div>
+      <h1 class="section-title" style="color:white;font-family:'Playfair Display',serif;">Media Gallery</h1>
+      <p class="section-sub" style="color:rgba(255,255,255,0.75);margin:0.75rem auto 0;">
+        Snapshots of our community events, celebrations and gatherings
+      </p>
+    </div>
+  </div>
+
+  <section class="section-pad" style="background:var(--cream)">
+    <div class="container">
+      <div class="media-grid">
+
+        <a href="https://www.instagram.com/reel/DSnczGZDM1W/?igsh=MzJpY2VveGFkNDEz" target="_blank" class="reel-card">
+          <img src="./resources/images/sports.jpeg" alt="Sports Championship 2025" />
+          <div class="reel-overlay">
+            <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="reel-title">Sports Championship 2025</div>
+            <div class="reel-ig">View on Instagram ↗</div>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/reel/DSgIIljDD_l/?igsh=MTRwZDl1eTBhYWRjaA==" target="_blank" class="reel-card">
+          <img src="./resources/images/baking.jpeg" alt="Bake A Smile" />
+          <div class="reel-overlay">
+            <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="reel-title">Bake A Smile</div>
+            <div class="reel-ig">View on Instagram ↗</div>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/reel/DSLfLEKjDgh/?igsh=ajl3MWlpd2lpY2g3" target="_blank" class="reel-card">
+          <img src="./resources/images/varnam.jpeg" alt="Varnam" />
+          <div class="reel-overlay">
+            <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="reel-title">Varnam</div>
+            <div class="reel-ig">View on Instagram ↗</div>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/reel/DPGe9cJDAYB/?igsh=MXdodzFhemF1dzNiYg==" target="_blank" class="reel-card">
+          <img src="./resources/images/onam.jpeg" alt="Onam" />
+          <div class="reel-overlay">
+            <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="reel-title">Onam</div>
+            <div class="reel-ig">View on Instagram ↗</div>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/reel/DNxx_rYWLVP/?igsh=MTd0b3Z6MWcxZGo5cw==" target="_blank" class="reel-card">
+          <img src="./resources/images/beachvolley.jpeg" alt="Beach Volleyball" />
+          <div class="reel-overlay">
+            <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="reel-title">Beach Volleyball</div>
+            <div class="reel-ig">View on Instagram ↗</div>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/reel/DG81jPBOfjB/?igsh=aWp5MjR2cmUwaDZy" target="_blank" class="reel-card">
+          <img src="./resources/images/mathsclass.jpeg" alt="Maths Training" />
+          <div class="reel-overlay">
+            <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="reel-title">Maths Training</div>
+            <div class="reel-ig">View on Instagram ↗</div>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/reel/DNx3BYN2Mmb/?igsh=ajJ0OTU0dHpjODU0" target="_blank" class="reel-card">
+          <img src="./resources/images/outing.jpeg" alt="Summer Outing" />
+          <div class="reel-overlay">
+            <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="reel-title">Summer Outing</div>
+            <div class="reel-ig">View on Instagram ↗</div>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/reel/DJ7tvpLs1Zp/?igsh=MWE1eGtxNTF1MGt4ZA==" target="_blank" class="reel-card">
+          <img src="./resources/images/sangamam.jpeg" alt="Sangamam" />
+          <div class="reel-overlay">
+            <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="reel-title">Sangamam</div>
+            <div class="reel-ig">View on Instagram ↗</div>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/p/DIKOJ7Huzpf/?igsh=MXA1Nzg2cTg1c3ozdQ==" target="_blank" class="reel-card">
+          <img src="./resources/images/eid.jpeg" alt="Eid" />
+          <div class="reel-overlay">
+            <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="reel-title">Eid</div>
+            <div class="reel-ig">View on Instagram ↗</div>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/reel/DHrMlH7OId2/?igsh=MWNxM2h6N3d0Mjd5eg==" target="_blank" class="reel-card">
+          <img src="./resources/images/badminton.jpeg" alt="Badminton" />
+          <div class="reel-overlay">
+            <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="reel-title">Badminton</div>
+            <div class="reel-ig">View on Instagram ↗</div>
+          </div>
+        </a>
+
+      </div>
+
+      <div style="text-align:center;margin-top:3rem">
+        <a href="https://www.instagram.com/finland_malayalee_association/" target="_blank" class="btn-primary">
+          Follow Us on Instagram ↗
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── PAGE: EVENTS ────────────────────────────────────── -->
+<div id="page-events" class="page">
+  <div class="events-hero">
+    <div class="container" style="text-align:center">
+      <div class="section-label" style="color:var(--gold);justify-content:center">What's On</div>
+      <h1 class="section-title" style="color:white;font-family:'Playfair Display',serif;">Upcoming Events</h1>
+      <p class="section-sub" style="color:rgba(255,255,255,0.75);margin:0.75rem auto 0;">
+        Stay connected with the latest from FIMA — gatherings, celebrations, and community milestones
+      </p>
+    </div>
+  </div>
+
+  <section class="section-pad" style="background:var(--cream)">
+    <div class="container" style="max-width:860px">
+      <div class="events-list">
+
+        <div class="event-card">
+          <div class="event-date-box">
+            <div class="event-day">07</div>
+            <div class="event-month">Feb</div>
+            <div class="event-year">2026</div>
+          </div>
+          <div>
+            <div class="event-title">FIMA AGM</div>
+            <div class="event-desc">Annual general body meeting for the FIMA members.</div>
+            <div class="event-tag">📅 Official Meeting</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:3rem;padding:2.5rem;background:var(--white);border-radius:16px;border:1px solid var(--cream-dark);text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.05)">
+        <div style="font-size:2rem;margin-bottom:0.75rem">📢</div>
+        <div style="font-size:1rem;font-weight:600;color:var(--green-900);margin-bottom:0.4rem">Stay Updated</div>
+        <div style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1.5rem">Follow our social media for the latest event announcements and updates.</div>
+        <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+          <a href="https://www.instagram.com/finland_malayalee_association/" target="_blank" class="btn-primary">Instagram</a>
+          <a href="https://www.youtube.com/channel/UCFCUZDWkkq8avdC5ZwBCjgQ" target="_blank" class="btn-green">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── PAGE: FINLAND INFO ──────────────────────────────── -->
+<div id="page-info" class="page">
+  <div class="info-hero">
+    <div class="container" style="text-align:center">
+      <div class="section-label" style="color:var(--gold);justify-content:center">Resources</div>
+      <h1 class="section-title" style="color:white;font-family:'Playfair Display',serif;">Finland Info</h1>
+      <p class="section-sub" style="color:rgba(255,255,255,0.75);margin:0.75rem auto 0;">
+        Essential resources and information for Malayalees living in or moving to Finland
+      </p>
+    </div>
+  </div>
+
+  <section class="section-pad" style="background:var(--cream)">
+    <div class="container">
+      <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem">
+        <div class="info-search">
+          <span class="info-search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </span>
+          <input type="text" id="infoSearch" placeholder="Search resources…" oninput="filterInfo()" />
+        </div>
+        <div class="info-filter-bar" id="infoFilters">
+          <button class="filter-btn active" onclick="setFilter('All', this)">All</button>
+          <button class="filter-btn" onclick="setFilter('Visa', this)">Visa</button>
+          <button class="filter-btn" onclick="setFilter('Admin', this)">Admin</button>
+          <button class="filter-btn" onclick="setFilter('Jobs', this)">Jobs</button>
+          <button class="filter-btn" onclick="setFilter('Links', this)">Links</button>
+        </div>
+      </div>
+
+      <div class="info-grid" id="infoGrid">
+
+        <a href="https://migri.fi/en/home" target="_blank" class="info-card" data-cat="Visa" data-title="Visa Details" data-desc="Your first stop to know the Finnish visa details.">
+          <div class="info-card-header">
+            <div class="info-icon">🛂</div>
+            <span class="info-cat">Visa</span>
+          </div>
+          <div class="info-title">Visa Details</div>
+          <div class="info-desc">Your first stop to know the Finnish visa details.</div>
+          <div class="info-link">Visit Migri.fi ↗</div>
+        </a>
+
+        <a href="mailto:fima.ec@gmail.com?subject=New%20Registration%20Request&body=Dear%20Sir%2FMadam%2C%0A%0AI%20would%20like%20to%20register%20as%20a%20member%20of%20FIMA.%20Kindly%20share%20details%20regarding%20the%20registration%20process%2C%20requirements%2C%20and%20applicable%20fees.%0A%0AName%3A%20%0AResidence%20Address%20In%20Finland%3A%20%0AFinnish%20Contact%20Number%3A%20%0A%0AThank%20you%20for%20your%20assistance.%0A%0ABest%20regards%2C" class="info-card" data-cat="Admin" data-title="Join FIMA" data-desc="FIMA Membership Registration and Renewal.">
+          <div class="info-card-header">
+            <div class="info-icon">🏛️</div>
+            <span class="info-cat">Admin</span>
+          </div>
+          <div class="info-title">Join FIMA</div>
+          <div class="info-desc">FIMA Membership Registration / Renewal.</div>
+          <div class="info-link">Send Email ↗</div>
+        </a>
+
+        <a href="./resources/documents/useful_links.pdf" target="_blank" class="info-card" data-cat="Links" data-title="Important Links" data-desc="Important links for the newcomers.">
+          <div class="info-card-header">
+            <div class="info-icon">🔗</div>
+            <span class="info-cat">Links</span>
+          </div>
+          <div class="info-title">Important Links</div>
+          <div class="info-desc">Important links for the newcomers to Finland.</div>
+          <div class="info-link">View PDF ↗</div>
+        </a>
+
+        <a href="https://finlandabroad.fi/web/ind/current-affairs/-/asset_publisher/h5w4iTUJhNne/content/warning-beware-of-online-frauds/384951" target="_blank" class="info-card" data-cat="Jobs" data-title="Finland Job Status" data-desc="WARNING – Beware of agents and frauds.">
+          <div class="info-card-header">
+            <div class="info-icon">⚠️</div>
+            <span class="info-cat">Jobs</span>
+          </div>
+          <div class="info-title">Finland Job Status</div>
+          <div class="info-desc">WARNING – Beware of agents/frauds targeting job seekers.</div>
+          <div class="info-link">Read More ↗</div>
+        </a>
+
+        <a href="https://www.helsinkitimes.fi/finland/finland-news/domestic/26382-foreign-students-in-finland-turning-to-food-banks-amid-job-scarcity.html" target="_blank" class="info-card" data-cat="Jobs" data-title="Reality of The Job Market" data-desc="Foreign students in Finland turning to food banks amid job scarcity.">
+          <div class="info-card-header">
+            <div class="info-icon">📰</div>
+            <span class="info-cat">Jobs</span>
+          </div>
+          <div class="info-title">Reality of The Job Market</div>
+          <div class="info-desc">Foreign students in Finland turning to food banks amid job scarcity.</div>
+          <div class="info-link">Helsinki Times ↗</div>
+        </a>
+
+        <a href="https://www.helsinki.fi/en/news/university/beware-recruitment-scams-using-university-helsinkis-name-always-verify-job-adverts-official-university-website" target="_blank" class="info-card" data-cat="Jobs" data-title="Recruitment Scams" data-desc="Beware of recruitment scams.">
+          <div class="info-card-header">
+            <div class="info-icon">🚨</div>
+            <span class="info-cat">Jobs</span>
+          </div>
+          <div class="info-title">Recruitment Scams</div>
+          <div class="info-desc">Beware of recruitment scams using university names.</div>
+          <div class="info-link">University of Helsinki ↗</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── PAGE: CONTACT ───────────────────────────────────── -->
+<div id="page-contact" class="page">
+  <div class="contact-hero">
+    <div class="container" style="text-align:center">
+      <div class="section-label" style="color:var(--gold);justify-content:center">Get In Touch</div>
+      <h1 class="section-title" style="color:white;font-family:'Playfair Display',serif;">Join FIMA</h1>
+      <p class="section-sub" style="color:rgba(255,255,255,0.75);margin:0.75rem auto 0;">
+        Ready to be part of our community? We'd love to hear from you.
+      </p>
+    </div>
+  </div>
+
+  <section class="section-pad" style="background:var(--cream)">
+    <div class="container">
+      <div class="contact-grid">
+
+        <div class="contact-info-block">
+          <div class="contact-item">
+            <div class="contact-item-icon">📧</div>
+            <div>
+              <div class="contact-item-label">Email Us</div>
+              <div class="contact-item-value">fima.ec@gmail.com</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div>
+              <div class="contact-item-label">Based In</div>
+              <div class="contact-item-value">Finland 🇫🇮</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">🌴</div>
+            <div>
+              <div class="contact-item-label">Roots In</div>
+              <div class="contact-item-value">Kerala, India 🇮🇳</div>
+            </div>
+          </div>
+
+          <div style="background:var(--white);border-radius:14px;border:1px solid var(--cream-dark);padding:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.04)">
+            <div class="contact-item-label" style="margin-bottom:1rem">Follow FIMA</div>
+            <div class="social-row">
+              <a href="https://www.instagram.com/finland_malayalee_association/" target="_blank" class="social-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                Instagram
+              </a>
+              <a href="https://www.youtube.com/channel/UCFCUZDWkkq8avdC5ZwBCjgQ" target="_blank" class="social-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                YouTube
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap">
+          <div class="form-title">Send Us a Message</div>
+          <form id="contactForm" onsubmit="submitForm(event)">
+            <div class="form-group">
+              <label class="form-label" for="cName">Full Name *</label>
+              <input class="form-input" type="text" id="cName" name="name" placeholder="Your full name" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cMobile">Mobile Number *</label>
+              <input class="form-input" type="tel" id="cMobile" name="mobile" placeholder="Your Indian or Finnish mobile number" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cMessage">Message *</label>
+              <textarea class="form-textarea" id="cMessage" name="message" placeholder="Write your message here…" required></textarea>
+            </div>
+            <button type="submit" class="form-submit">Send Message →</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ─── FOOTER ──────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Finland Malayalee Association</div>
+        <div class="footer-brand-desc">
+          Celebrating the vibrant culture, rich heritage, and unwavering spirit of Kerala —
+          bringing Malayalees across Finland together since 2013.
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Navigate</div>
+        <ul class="footer-links">
+          <li><a onclick="navigate('home')">Home</a></li>
+          <li><a onclick="navigate('about')">About Us</a></li>
+          <li><a onclick="navigate('committee')">Committee</a></li>
+          <li><a onclick="navigate('media')">Media</a></li>
+          <li><a onclick="navigate('events')">Events</a></li>
+          <li><a onclick="navigate('info')">Finland Info</a></li>
+          <li><a onclick="navigate('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://www.instagram.com/finland_malayalee_association/" target="_blank">Instagram</a></li>
+          <li><a href="https://www.youtube.com/channel/UCFCUZDWkkq8avdC5ZwBCjgQ" target="_blank">YouTube</a></li>
+          <li><a href="mailto:fima.ec@gmail.com">fima.ec@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Finland Malayalee Association. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/finland_malayalee_association/" target="_blank" title="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/channel/UCFCUZDWkkq8avdC5ZwBCjgQ" target="_blank" title="YouTube">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── SCRIPTS ──────────────────────────────────────────── -->
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const PAGES = ['home','about','committee','media','events','info','contact'];
+
+  function navigate(page, pushState = true) {
+    // Hide all pages
+    PAGES.forEach(p => {
+      const el = document.getElementById('page-' + p);
+      if (el) el.classList.remove('active');
+    });
+    // Show target
+    const target = document.getElementById('page-' + page);
+    if (target) {
+      target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // Update nav active state
+    document.querySelectorAll('[data-page]').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === page);
+    });
+    // Update mobile menu
+    document.querySelectorAll('#mobileMenu a').forEach(a => {
+      const p = a.getAttribute('onclick')?.match(/navigate\('(\w+)'\)/)?.[1];
+      a.classList.toggle('active', p === page);
+    });
+    // Close mobile menu
+    document.getElementById('mobileMenu').classList.remove('open');
+    // Update URL hash
+    if (pushState) history.pushState({ page }, '', '#' + page);
+  }
+
+  function toggleMobile() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Handle browser back/forward
+  window.addEventListener('popstate', e => {
+    const page = e.state?.page || location.hash.replace('#','') || 'home';
+    navigate(page, false);
+  });
+
+  // Load from hash on initial page load
+  const initPage = location.hash.replace('#','') || 'home';
+  navigate(initPage, false);
+
+  // ── Finland Info filters ────────────────────────────────
+  let activeFilter = 'All';
+
+  function setFilter(cat, btn) {
+    activeFilter = cat;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterInfo();
+  }
+
+  function filterInfo() {
+    const q = document.getElementById('infoSearch').value.toLowerCase();
+    document.querySelectorAll('#infoGrid .info-card').forEach(card => {
+      const matchCat = activeFilter === 'All' || card.dataset.cat === activeFilter;
+      const matchQ   = !q || card.dataset.title.toLowerCase().includes(q) || card.dataset.desc.toLowerCase().includes(q);
+      card.style.display = (matchCat && matchQ) ? '' : 'none';
+    });
+  }
+
+  // ── Contact form ────────────────────────────────────────
+  function submitForm(e) {
+    e.preventDefault();
+    const name    = document.getElementById('cName').value;
+    const mobile  = document.getElementById('cMobile').value;
+    const message = document.getElementById('cMessage').value;
+    const subject = encodeURIComponent('Message from ' + name);
+    const body    = encodeURIComponent(`Name: ${name}\nMobile: ${mobile}\n\nMessage:\n${message}`);
+    window.open(`mailto:fima.ec@gmail.com?subject=${subject}&body=${body}`, '_blank');
+  }
+
+  // Prevent default on nav links
+  document.querySelectorAll('.nav-links a, #mobileMenu a').forEach(a => {
+    a.addEventListener('click', e => e.preventDefault());
+  });
+</script>
+
+</body>
 </html>
