@@ -37,8 +37,7 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Large media files (too big for GitHub — host these on a CDN or cloud storage)
-*.mp4
+# Large media files (too big for GitHub)
 *.mov
 *.avi
 *.mkv
