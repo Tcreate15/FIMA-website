@@ -1287,6 +1287,18 @@
           <h2 class="sh-title" style="font-size:1.75rem">All Scheduled Events</h2>
         </div>
         <div class="event-list">
+          <div class="event-card reveal" style="cursor:pointer" onclick="selectEventDate('2026-12-05')">
+            <div class="event-date-box" style="background:var(--r-800)">
+              <div class="e-day">05</div>
+              <div class="e-mon">Dec</div>
+              <div class="e-year">2026</div>
+            </div>
+            <div>
+              <div class="event-title">FIMA Varnam</div>
+              <div class="event-desc">Annual drawing and painting competition for children. &nbsp;·&nbsp; 10:00 – 13:00 &nbsp;·&nbsp; Sininen Huone, Entresse Kirjasto</div>
+              <div class="event-tag" style="color:var(--r-700)">Upcoming Event</div>
+            </div>
+          </div>
           <div class="event-card reveal" style="cursor:pointer" onclick="selectEventDate('2026-02-07')">
             <div class="event-date-box">
               <div class="e-day">07</div>
@@ -1744,11 +1756,22 @@
 
   // ── Events Calendar ──────────────────────────────────────
   const FIMA_EVENTS = [
-    { date: '2026-02-07', title: 'FIMA AGM', description: 'Annual general body meeting for the FIMA members.' }
+    {
+      date: '2026-12-05',
+      title: 'FIMA Varnam',
+      time: '10:00 – 13:00',
+      location: 'Sininen Huone, Entresse Kirjasto',
+      description: 'Annual drawing and painting competition for children.'
+    },
+    {
+      date: '2026-02-07',
+      title: 'FIMA AGM',
+      description: 'Annual general body meeting for the FIMA members.'
+    }
   ];
   let calYear = 2026;
-  let calMonth = 1; // 0-indexed (1 = February 2026)
-  let selectedEventDate = '2026-02-07';
+  let calMonth = 11; // 0-indexed (11 = December 2026)
+  let selectedEventDate = '2026-12-05';
 
   function renderCalendar() {
     const titleEl = document.getElementById('calMonthTitle');
@@ -1788,13 +1811,25 @@
     const ev = FIMA_EVENTS.find(e => e.date === selectedEventDate);
     if (ev) {
       const formatted = new Date(ev.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      const timeHtml = ev.time ? `
+          <div class="cal-event-date" style="color:var(--g-800);margin-bottom:0.45rem">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            ${ev.time}
+          </div>` : '';
+      const locHtml = ev.location ? `
+          <div class="cal-event-date" style="color:var(--g-800);margin-bottom:0.85rem">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            ${ev.location}
+          </div>` : '';
       detailsEl.innerHTML = `
         <div class="cal-event-box">
           <div class="cal-event-title">${ev.title}</div>
-          <div class="cal-event-date">
+          <div class="cal-event-date" style="margin-bottom:${ev.time || ev.location ? '0.45rem' : '0.85rem'}">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             ${formatted}
           </div>
+          ${timeHtml}
+          ${locHtml}
           <div class="cal-event-desc">${ev.description}</div>
         </div>
       `;
