@@ -467,6 +467,94 @@
     .event-desc  { font-size: 0.875rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.55; }
     .event-tag   { margin-top: 0.6rem; font-size: 0.72rem; font-weight: 600; color: var(--g-600); letter-spacing: 0.04em; }
 
+    /* Interactive Events Calendar */
+    .events-cal-layout {
+      display: grid; grid-template-columns: 1.7fr 1fr; gap: 2rem; align-items: start;
+    }
+    .cal-card {
+      background: var(--white); border-radius: 16px;
+      border: 1px solid var(--surface-2); box-shadow: var(--shadow);
+      padding: 1.75rem;
+    }
+    .cal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.5rem; padding-bottom: 1rem;
+      border-bottom: 1px solid var(--surface-2);
+    }
+    .cal-month-title {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.45rem; color: var(--g-900); font-weight: 400;
+    }
+    .cal-nav { display: flex; align-items: center; gap: 0.5rem; }
+    .cal-nav-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      border: 1.5px solid var(--surface-2); background: var(--surface);
+      color: var(--g-900); display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .cal-nav-btn:hover { background: var(--g-900); color: var(--white); border-color: var(--g-900); }
+    .cal-weekdays {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 0.4rem; margin-bottom: 0.6rem; text-align: center;
+    }
+    .cal-weekday {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--muted); padding: 0.35rem 0;
+    }
+    .cal-days {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.4rem;
+    }
+    .cal-day {
+      aspect-ratio: 1; border-radius: 10px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-size: 0.88rem; font-weight: 500; color: var(--dim);
+      background: var(--surface); border: 1.5px solid transparent;
+      cursor: pointer; transition: all 0.18s; position: relative;
+    }
+    .cal-day:hover { border-color: var(--g-400); background: var(--g-50); color: var(--g-900); }
+    .cal-day.empty { background: transparent; cursor: default; border: none; }
+    .cal-day.empty:hover { background: transparent; border: none; }
+    .cal-day.today { border-color: var(--gold); font-weight: 700; }
+    .cal-day.has-event {
+      background: var(--r-100); color: var(--r-800); font-weight: 700;
+      border-color: rgba(139,28,28,0.25);
+    }
+    .cal-day.has-event::after {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--r-600); margin-top: 2px;
+    }
+    .cal-day.selected {
+      background: var(--g-900) !important; color: var(--gold-pale) !important;
+      border-color: var(--g-900) !important; font-weight: 700;
+    }
+    .cal-day.selected.has-event::after { background: var(--gold-lt); }
+
+    .cal-details-card {
+      background: var(--white); border-radius: 16px;
+      border: 1px solid var(--surface-2); box-shadow: var(--shadow);
+      padding: 1.75rem; border-top: 3px solid var(--r-700);
+    }
+    .cal-details-heading {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.25rem; color: var(--g-900); margin-bottom: 1.25rem;
+    }
+    .cal-event-box {
+      background: var(--surface); border-radius: 12px;
+      padding: 1.25rem; border-left: 4px solid var(--g-700);
+    }
+    .cal-event-title { font-size: 1.05rem; font-weight: 700; color: var(--g-900); margin-bottom: 0.5rem; }
+    .cal-event-date {
+      display: flex; align-items: center; gap: 0.45rem;
+      font-size: 0.82rem; font-weight: 600; color: var(--r-700); margin-bottom: 0.85rem;
+    }
+    .cal-event-desc { font-size: 0.88rem; color: var(--dim); line-height: 1.65; }
+    .cal-empty-state {
+      text-align: center; padding: 2rem 1rem; color: var(--muted); font-size: 0.88rem;
+    }
+    @media (max-width: 900px) {
+      .events-cal-layout { grid-template-columns: 1fr; }
+    }
+
     /* ════════════════════════════════════════════
        FINLAND INFO PAGE
     ════════════════════════════════════════════ */
@@ -1153,21 +1241,67 @@
     </div>
   </div>
   <section class="section-pad" style="background:var(--surface)">
-    <div class="container" style="max-width:800px">
-      <div class="event-list">
-        <div class="event-card reveal">
-          <div class="event-date-box">
-            <div class="e-day">07</div>
-            <div class="e-mon">Feb</div>
-            <div class="e-year">2026</div>
+    <div class="container">
+
+      <!-- Interactive Calendar + Event Details -->
+      <div class="events-cal-layout reveal">
+        <div class="cal-card">
+          <div class="cal-header">
+            <div class="cal-month-title" id="calMonthTitle">February 2026</div>
+            <div class="cal-nav">
+              <button class="cal-nav-btn" onclick="jumpToNextEvent()" title="Jump to next event" style="width:auto;padding:0 0.75rem;font-size:0.78rem;font-weight:600">Next Event</button>
+              <button class="cal-nav-btn" onclick="changeMonth(-1)" aria-label="Previous month">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="cal-nav-btn" onclick="changeMonth(1)" aria-label="Next month">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
           </div>
-          <div>
-            <div class="event-title">FIMA Annual General Meeting</div>
-            <div class="event-desc">Annual general body meeting for all FIMA members. All members are encouraged to attend.</div>
-            <div class="event-tag">Official Meeting</div>
+          <div class="cal-weekdays">
+            <div class="cal-weekday">Sun</div>
+            <div class="cal-weekday">Mon</div>
+            <div class="cal-weekday">Tue</div>
+            <div class="cal-weekday">Wed</div>
+            <div class="cal-weekday">Thu</div>
+            <div class="cal-weekday">Fri</div>
+            <div class="cal-weekday">Sat</div>
+          </div>
+          <div class="cal-days" id="calDaysGrid"></div>
+          <div style="display:flex;align-items:center;gap:1.25rem;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--surface-2);font-size:0.78rem;color:var(--muted)">
+            <span style="display:inline-flex;align-items:center;gap:0.4rem"><span style="width:10px;height:10px;border-radius:50%;background:var(--r-600);display:inline-block"></span> Event Scheduled</span>
+            <span style="display:inline-flex;align-items:center;gap:0.4rem"><span style="width:10px;height:10px;border-radius:3px;border:1.5px solid var(--gold);display:inline-block"></span> Today</span>
+          </div>
+        </div>
+
+        <div class="cal-details-card">
+          <div class="cal-details-heading">Event Details</div>
+          <div id="calEventDetails"></div>
+        </div>
+      </div>
+
+      <!-- Upcoming Events List -->
+      <div style="margin-top:3.5rem">
+        <div class="sh reveal" style="margin-bottom:1.5rem">
+          <span class="sh-eyebrow">Schedule</span>
+          <h2 class="sh-title" style="font-size:1.75rem">All Scheduled Events</h2>
+        </div>
+        <div class="event-list">
+          <div class="event-card reveal" style="cursor:pointer" onclick="selectEventDate('2026-02-07')">
+            <div class="event-date-box">
+              <div class="e-day">07</div>
+              <div class="e-mon">Feb</div>
+              <div class="e-year">2026</div>
+            </div>
+            <div>
+              <div class="event-title">FIMA AGM</div>
+              <div class="event-desc">Annual general body meeting for the FIMA members.</div>
+              <div class="event-tag">Official Meeting</div>
+            </div>
           </div>
         </div>
       </div>
+
       <div class="reveal" style="margin-top:3rem;padding:2.5rem;background:var(--white);border-radius:var(--radius);border:1px solid var(--surface-2);text-align:center;box-shadow:var(--shadow)">
         <div style="font-size:1rem;font-weight:600;color:var(--g-900);margin-bottom:0.4rem">Stay Updated</div>
         <div style="font-size:0.875rem;color:var(--muted);margin-bottom:1.5rem">Follow our social media channels for the latest event announcements and updates.</div>
@@ -1607,6 +1741,96 @@
     }
     return 'home';
   }
+
+  // ── Events Calendar ──────────────────────────────────────
+  const FIMA_EVENTS = [
+    { date: '2026-02-07', title: 'FIMA AGM', description: 'Annual general body meeting for the FIMA members.' }
+  ];
+  let calYear = 2026;
+  let calMonth = 1; // 0-indexed (1 = February 2026)
+  let selectedEventDate = '2026-02-07';
+
+  function renderCalendar() {
+    const titleEl = document.getElementById('calMonthTitle');
+    const gridEl = document.getElementById('calDaysGrid');
+    if (!titleEl || !gridEl) return;
+
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    titleEl.textContent = `${monthNames[calMonth]} ${calYear}`;
+
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+    const now = new Date();
+    const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+    let html = '';
+    for (let i = 0; i < firstDay; i++) {
+      html += '<div class="cal-day empty"></div>';
+    }
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateStr = `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      const hasEvent = FIMA_EVENTS.some(ev => ev.date === dateStr);
+      const isToday = dateStr === todayStr;
+      const isSelected = dateStr === selectedEventDate;
+      const classes = ['cal-day'];
+      if (hasEvent) classes.push('has-event');
+      if (isToday) classes.push('today');
+      if (isSelected) classes.push('selected');
+      html += `<button type="button" class="${classes.join(' ')}" onclick="selectEventDate('${dateStr}')">${d}</button>`;
+    }
+    gridEl.innerHTML = html;
+    renderEventDetails();
+  }
+
+  function renderEventDetails() {
+    const detailsEl = document.getElementById('calEventDetails');
+    if (!detailsEl) return;
+    const ev = FIMA_EVENTS.find(e => e.date === selectedEventDate);
+    if (ev) {
+      const formatted = new Date(ev.date + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      detailsEl.innerHTML = `
+        <div class="cal-event-box">
+          <div class="cal-event-title">${ev.title}</div>
+          <div class="cal-event-date">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            ${formatted}
+          </div>
+          <div class="cal-event-desc">${ev.description}</div>
+        </div>
+      `;
+    } else {
+      const formatted = selectedEventDate ? new Date(selectedEventDate + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+      detailsEl.innerHTML = `
+        <div class="cal-empty-state">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 0.75rem;color:var(--soft)"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <p>${selectedEventDate ? `No events scheduled for ${formatted}.` : 'Select a highlighted date on the calendar to view event details.'}</p>
+        </div>
+      `;
+    }
+  }
+
+  function changeMonth(delta) {
+    calMonth += delta;
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    else if (calMonth > 11) { calMonth = 0; calYear++; }
+    renderCalendar();
+  }
+
+  function selectEventDate(dateStr) {
+    selectedEventDate = dateStr;
+    const parts = dateStr.split('-');
+    calYear = parseInt(parts[0], 10);
+    calMonth = parseInt(parts[1], 10) - 1;
+    renderCalendar();
+  }
+
+  function jumpToNextEvent() {
+    if (FIMA_EVENTS.length > 0) {
+      selectEventDate(FIMA_EVENTS[0].date);
+    }
+  }
+
+  renderCalendar();
 
   // ── Finland Info Subpages ────────────────────────────────
   function switchInfoSubpage(sub) {
