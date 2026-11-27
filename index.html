@@ -120,8 +120,7 @@
       display: flex; align-items: center; gap: 0.65rem; cursor: pointer;
     }
     .nav-logo img {
-      height: 36px; width: 36px; border-radius: 50%; object-fit: cover;
-      border: 1.5px solid rgba(184,148,42,0.4);
+      height: 36px; width: 36px; object-fit: contain;
     }
     .nav-logo-text {
       font-weight: 600; font-size: 0.95rem; color: var(--white);
@@ -498,21 +497,72 @@
     .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
     .info-card {
       background: var(--white); border-radius: var(--radius);
-      border: 1px solid var(--surface-2); padding: 1.5rem;
-      display: flex; flex-direction: column; gap: 0.65rem;
+      border: 1px solid var(--surface-2); padding: 1.75rem;
+      display: flex; flex-direction: column; gap: 0.75rem;
       box-shadow: var(--shadow);
+      border-top: 3px solid var(--g-600);
       transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
     }
-    .info-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--g-300); }
-    .info-cat-row { display: flex; align-items: center; justify-content: space-between; }
+    .info-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--g-400); }
+    .info-cat-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.25rem; }
+    .info-icon-box {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: var(--g-50); border: 1px solid var(--g-100);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--g-700);
+    }
+    .info-icon-box svg { width: 20px; height: 20px; }
     .info-cat-badge {
       font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
       text-transform: uppercase; color: var(--r-600);
-      background: var(--r-100); padding: 0.2rem 0.6rem; border-radius: 50px;
+      background: var(--r-100); padding: 0.22rem 0.65rem; border-radius: 50px;
     }
-    .info-title { font-size: 0.95rem; font-weight: 700; color: var(--g-900); }
-    .info-desc  { font-size: 0.84rem; color: var(--muted); line-height: 1.55; flex: 1; }
-    .info-link  { font-size: 0.8rem; color: var(--g-600); font-weight: 600; display: flex; align-items: center; gap: 0.3rem; }
+    .info-title { font-size: 1.02rem; font-weight: 700; color: var(--g-900); }
+    .info-desc  { font-size: 0.86rem; color: var(--muted); line-height: 1.65; flex: 1; }
+    .info-link  { font-size: 0.82rem; color: var(--g-600); font-weight: 600; display: flex; align-items: center; gap: 0.35rem; margin-top: 0.25rem; }
+
+    /* Finland Info Subpage Switcher */
+    .info-subtabs {
+      display: inline-flex; gap: 0.4rem;
+      background: var(--white); padding: 0.35rem;
+      border-radius: 10px; border: 1px solid var(--surface-2);
+      box-shadow: var(--shadow); margin-bottom: 2.5rem;
+    }
+    .subtab-btn {
+      padding: 0.55rem 1.25rem; border-radius: 7px;
+      font-size: 0.875rem; font-weight: 600;
+      color: var(--muted); transition: all 0.2s;
+    }
+    .subtab-btn:hover { color: var(--g-900); }
+    .subtab-btn.active {
+      background: var(--g-900); color: var(--white);
+      box-shadow: 0 2px 8px rgba(10,31,16,0.2);
+    }
+    .info-subpage { display: none; }
+    .info-subpage.active { display: block; animation: pgIn 0.35s ease; }
+
+    /* Student Discount Highlight Card (Frank App) */
+    .student-highlight {
+      background: linear-gradient(135deg, var(--g-900) 0%, var(--g-800) 100%);
+      border-radius: 16px; padding: 2.5rem;
+      color: var(--white); margin-bottom: 3rem;
+      display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; align-items: center;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(184,148,42,0.2);
+    }
+    .student-highlight h3 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.75rem; font-weight: 400; color: var(--white); margin-bottom: 0.65rem;
+    }
+    .student-highlight p {
+      font-size: 0.94rem; color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 1.25rem;
+    }
+    .student-highlight-actions {
+      display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start;
+    }
+    @media (max-width: 768px) {
+      .student-highlight { grid-template-columns: 1fr; padding: 1.75rem; }
+    }
 
     /* ════════════════════════════════════════════
        CONTACT PAGE
@@ -591,7 +641,7 @@
       margin-bottom: 1.5rem;
     }
     .ft-logo { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.9rem; }
-    .ft-logo img { height: 34px; width: 34px; border-radius: 50%; border: 1.5px solid rgba(184,148,42,0.35); }
+    .ft-logo img { height: 34px; width: 34px; object-fit: contain; }
     .ft-logo span { font-weight: 700; color: var(--white); font-size: 0.95rem; }
     .ft-desc { line-height: 1.65; }
     .ft-heading { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 1rem; }
@@ -680,9 +730,10 @@
 <!-- ══ PAGE: HOME ══════════════════════════════════════════ -->
 <div id="page-home" class="page">
 
-  <!-- Hero with video -->
+  <!-- Hero with video + Kerala houseboat fallback -->
   <section class="hero">
     <div class="hero-fallback"></div>
+    <img class="hero-img-fallback" src="https://commons.wikimedia.org/wiki/Special:FilePath/Houseboat_at_Kerala_Backwaters.jpg?width=1600" alt="Kerala Houseboats" />
     <video class="hero-video" autoplay loop muted playsinline>
       <source src="./resources/videos/bg.mp4" type="video/mp4" />
     </video>
@@ -739,7 +790,7 @@
       <div class="features-grid">
         <div class="feat-card reveal delay-1">
           <div class="feat-card-img">
-            <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&q=80&fit=crop" alt="Kerala Onam Festival" />
+            <img src="./resources/images/onam.jpeg" alt="Kerala Onam Festival" />
           </div>
           <div class="feat-card-body">
             <div class="feat-card-title">Cultural Celebrations</div>
@@ -748,7 +799,7 @@
         </div>
         <div class="feat-card reveal delay-2">
           <div class="feat-card-img">
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80&fit=crop" alt="Community gathering" />
+            <img src="./resources/images/sangamam.jpeg" alt="FIMA Community Gathering" />
           </div>
           <div class="feat-card-body">
             <div class="feat-card-title">Community & Support</div>
@@ -757,7 +808,7 @@
         </div>
         <div class="feat-card reveal delay-3">
           <div class="feat-card-img">
-            <img src="https://images.unsplash.com/photo-1554244933-d876deb6b2ff?w=600&q=80&fit=crop" alt="Sports and activities" />
+            <img src="./resources/images/sports.jpeg" alt="FIMA Sports Championship" />
           </div>
           <div class="feat-card-body">
             <div class="feat-card-title">Sports & Activities</div>
@@ -778,13 +829,13 @@
       </div>
       <div class="img-strip">
         <div class="img-strip-item reveal delay-1">
-          <img src="https://images.unsplash.com/photo-1593693411515-c20261bcad6e?w=800&q=80&fit=crop" alt="Kerala backwaters" />
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Houseboat_at_Kerala_Backwaters.jpg?width=1000" alt="Kerala backwaters houseboat" />
         </div>
         <div class="img-strip-item reveal delay-2">
-          <img src="https://images.unsplash.com/photo-1625505826533-5c80aca7d157?w=600&q=80&fit=crop" alt="Kathakali dance" />
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kathakali_Dance_Kerala.jpg?width=800" alt="Kathakali dance of Kerala" />
         </div>
         <div class="img-strip-item reveal delay-3">
-          <img src="https://images.unsplash.com/photo-1562602833-0f4ab2fc46e3?w=600&q=80&fit=crop" alt="Kerala coconut trees" />
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kerala_backwaters,_Canal,_Palm_trees,_India.jpg?width=800" alt="Kerala coconut palm trees and backwaters" />
         </div>
       </div>
     </div>
@@ -824,7 +875,7 @@
       <div class="about-layout">
         <div class="about-img-wrap reveal-left">
           <div class="about-img-main">
-            <img src="https://images.unsplash.com/photo-1593693411515-c20261bcad6e?w=900&q=80&fit=crop" alt="Kerala backwaters" />
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kerala_backwaters,_Canal,_Palm_trees,_India.jpg?width=1000" alt="Kerala backwaters and palm trees" />
           </div>
           <div class="about-img-accent">
             <img src="./resources/images/logo.png" alt="FIMA Logo" style="object-fit:contain;padding:1rem;background:var(--g-900)" />
@@ -883,7 +934,7 @@
 
   <!-- Kerala culture banner -->
   <section style="position:relative;height:380px;overflow:hidden">
-    <img src="https://images.unsplash.com/photo-1625505826533-5c80aca7d157?w=1400&q=80&fit=crop" alt="Kathakali" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kathakali_Dance_Kerala.jpg?width=1400" alt="Kathakali" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
     <div style="position:absolute;inset:0;background:rgba(5,15,8,0.65)"></div>
     <div class="container reveal" style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
       <span class="sh-eyebrow">Kathakali — The Soul of Kerala</span>
@@ -1136,63 +1187,215 @@
       <div class="sh center">
         <span class="sh-eyebrow">Resources</span>
         <h1 class="sh-title on-dark">Finland Info</h1>
-        <p class="sh-sub on-dark">Essential resources and information for Malayalees living in or moving to Finland</p>
+        <p class="sh-sub on-dark">Essential resources, housing guides, and student information for Malayalees living in or moving to Finland</p>
       </div>
     </div>
   </div>
   <section class="section-pad" style="background:var(--surface)">
     <div class="container">
-      <div class="fi-controls reveal">
-        <div class="fi-search">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input type="text" id="infoSearch" placeholder="Search resources…" oninput="filterInfo()" />
-        </div>
-        <div class="filter-row" id="infoFilters">
-          <button class="filter-btn active" onclick="setFilter('All',this)">All</button>
-          <button class="filter-btn" onclick="setFilter('Visa',this)">Visa</button>
-          <button class="filter-btn" onclick="setFilter('Admin',this)">Admin</button>
-          <button class="filter-btn" onclick="setFilter('Jobs',this)">Jobs</button>
-          <button class="filter-btn" onclick="setFilter('Links',this)">Links</button>
+
+      <!-- Subpage Switcher -->
+      <div style="display:flex;justify-content:center" class="reveal">
+        <div class="info-subtabs" role="tablist">
+          <button class="subtab-btn active" id="tab-general" onclick="switchInfoSubpage('general')">General Resources</button>
+          <button class="subtab-btn" id="tab-students" onclick="switchInfoSubpage('students')">For Students</button>
         </div>
       </div>
-      <div class="info-grid" id="infoGrid">
-        <a href="https://migri.fi/en/home" target="_blank" class="info-card reveal delay-1" data-cat="Visa" data-title="visa details" data-desc="finnish visa details">
-          <div class="info-cat-row"><span style="font-size:1.3rem">🛂</span><span class="info-cat-badge">Visa</span></div>
-          <div class="info-title">Visa Details</div>
-          <div class="info-desc">Your first stop to know the Finnish visa details and immigration requirements.</div>
-          <div class="info-link">Visit Migri.fi <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
-        </a>
-        <a href="mailto:fima.ec@gmail.com?subject=New%20Registration%20Request&body=Dear%20Sir%2FMadam%2C%0A%0AI%20would%20like%20to%20register%20as%20a%20member%20of%20FIMA.%0A%0AName%3A%20%0AResidence%20Address%20in%20Finland%3A%20%0AFinnish%20Contact%20Number%3A%20%0A%0AThank%20you." class="info-card reveal delay-2" data-cat="Admin" data-title="join fima membership" data-desc="registration renewal">
-          <div class="info-cat-row"><span style="font-size:1.3rem">🏛️</span><span class="info-cat-badge">Admin</span></div>
-          <div class="info-title">Join FIMA</div>
-          <div class="info-desc">FIMA Membership Registration and Renewal — become part of our growing community.</div>
-          <div class="info-link">Send Email <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
-        </a>
-        <a href="./resources/documents/useful_links.pdf" target="_blank" class="info-card reveal delay-3" data-cat="Links" data-title="important links newcomers" data-desc="useful links">
-          <div class="info-cat-row"><span style="font-size:1.3rem">🔗</span><span class="info-cat-badge">Links</span></div>
-          <div class="info-title">Important Links</div>
-          <div class="info-desc">A curated collection of important links for newcomers to Finland.</div>
-          <div class="info-link">View PDF <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
-        </a>
-        <a href="https://finlandabroad.fi/web/ind/current-affairs/-/asset_publisher/h5w4iTUJhNne/content/warning-beware-of-online-frauds/384951" target="_blank" class="info-card reveal delay-4" data-cat="Jobs" data-title="finland job status warning frauds" data-desc="beware agents frauds">
-          <div class="info-cat-row"><span style="font-size:1.3rem">⚠️</span><span class="info-cat-badge">Jobs</span></div>
-          <div class="info-title">Finland Job Status</div>
-          <div class="info-desc">Warning — be aware of agents and fraudsters targeting job seekers moving to Finland.</div>
-          <div class="info-link">Read More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
-        </a>
-        <a href="https://www.helsinkitimes.fi/finland/finland-news/domestic/26382-foreign-students-in-finland-turning-to-food-banks-amid-job-scarcity.html" target="_blank" class="info-card reveal delay-1" data-cat="Jobs" data-title="reality job market foreign students food banks" data-desc="job scarcity">
-          <div class="info-cat-row"><span style="font-size:1.3rem">📰</span><span class="info-cat-badge">Jobs</span></div>
-          <div class="info-title">Reality of the Job Market</div>
-          <div class="info-desc">Foreign students in Finland turning to food banks amid increasing job scarcity — an important read.</div>
-          <div class="info-link">Helsinki Times <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
-        </a>
-        <a href="https://www.helsinki.fi/en/news/university/beware-recruitment-scams-using-university-helsinkis-name-always-verify-job-adverts-official-university-website" target="_blank" class="info-card reveal delay-2" data-cat="Jobs" data-title="recruitment scams university helsinki" data-desc="scam warning">
-          <div class="info-cat-row"><span style="font-size:1.3rem">🚨</span><span class="info-cat-badge">Jobs</span></div>
-          <div class="info-title">Recruitment Scams</div>
-          <div class="info-desc">Beware of recruitment scams using the University of Helsinki's name — always verify through official channels.</div>
-          <div class="info-link">University of Helsinki <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
-        </a>
+
+      <!-- SUBPAGE 1: GENERAL RESOURCES -->
+      <div id="info-sub-general" class="info-subpage active">
+        <div class="fi-controls reveal">
+          <div class="fi-search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="infoSearch" placeholder="Search resources…" oninput="filterInfo()" />
+          </div>
+          <div class="filter-row" id="infoFilters">
+            <button class="filter-btn active" onclick="setFilter('All',this)">All</button>
+            <button class="filter-btn" onclick="setFilter('Visa',this)">Visa</button>
+            <button class="filter-btn" onclick="setFilter('Admin',this)">Admin</button>
+            <button class="filter-btn" onclick="setFilter('Jobs',this)">Jobs</button>
+            <button class="filter-btn" onclick="setFilter('Links',this)">Links</button>
+          </div>
+        </div>
+        <div class="info-grid" id="infoGrid">
+          <a href="https://migri.fi/en/home" target="_blank" class="info-card reveal delay-1" data-cat="Visa" data-title="visa details" data-desc="finnish visa details">
+            <div class="info-cat-row">
+              <div class="info-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2.5"/><path d="M15 8h3M15 12h3M6 16h12"/></svg>
+              </div>
+              <span class="info-cat-badge">Visa</span>
+            </div>
+            <div class="info-title">Visa Details</div>
+            <div class="info-desc">Your first stop to know the Finnish visa details and immigration requirements.</div>
+            <div class="info-link">Visit Migri.fi <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          </a>
+          <a href="mailto:fima.ec@gmail.com?subject=New%20Registration%20Request&body=Dear%20Sir%2FMadam%2C%0A%0AI%20would%20like%20to%20register%20as%20a%20member%20of%20FIMA.%0A%0AName%3A%20%0AResidence%20Address%20in%20Finland%3A%20%0AFinnish%20Contact%20Number%3A%20%0A%0AThank%20you." class="info-card reveal delay-2" data-cat="Admin" data-title="join fima membership" data-desc="registration renewal">
+            <div class="info-cat-row">
+              <div class="info-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+              </div>
+              <span class="info-cat-badge">Admin</span>
+            </div>
+            <div class="info-title">Join FIMA</div>
+            <div class="info-desc">FIMA Membership Registration and Renewal — become part of our growing community.</div>
+            <div class="info-link">Send Email <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          </a>
+          <a href="./resources/documents/useful_links.pdf" target="_blank" class="info-card reveal delay-3" data-cat="Links" data-title="important links newcomers" data-desc="useful links">
+            <div class="info-cat-row">
+              <div class="info-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+              </div>
+              <span class="info-cat-badge">Links</span>
+            </div>
+            <div class="info-title">Important Links</div>
+            <div class="info-desc">A curated collection of important links for newcomers to Finland.</div>
+            <div class="info-link">View PDF <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          </a>
+          <a href="https://finlandabroad.fi/web/ind/current-affairs/-/asset_publisher/h5w4iTUJhNne/content/warning-beware-of-online-frauds/384951" target="_blank" class="info-card reveal delay-4" data-cat="Jobs" data-title="finland job status warning frauds" data-desc="beware agents frauds">
+            <div class="info-cat-row">
+              <div class="info-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
+              <span class="info-cat-badge">Jobs</span>
+            </div>
+            <div class="info-title">Finland Job Status</div>
+            <div class="info-desc">Warning — be aware of agents and fraudsters targeting job seekers moving to Finland.</div>
+            <div class="info-link">Read More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          </a>
+          <a href="https://www.helsinkitimes.fi/finland/finland-news/domestic/26382-foreign-students-in-finland-turning-to-food-banks-amid-job-scarcity.html" target="_blank" class="info-card reveal delay-1" data-cat="Jobs" data-title="reality job market foreign students food banks" data-desc="job scarcity">
+            <div class="info-cat-row">
+              <div class="info-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8V6z"/></svg>
+              </div>
+              <span class="info-cat-badge">Jobs</span>
+            </div>
+            <div class="info-title">Reality of the Job Market</div>
+            <div class="info-desc">Foreign students in Finland turning to food banks amid increasing job scarcity — an important read.</div>
+            <div class="info-link">Helsinki Times <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          </a>
+          <a href="https://www.helsinki.fi/en/news/university/beware-recruitment-scams-using-university-helsinkis-name-always-verify-job-adverts-official-university-website" target="_blank" class="info-card reveal delay-2" data-cat="Jobs" data-title="recruitment scams university helsinki" data-desc="scam warning">
+            <div class="info-cat-row">
+              <div class="info-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+              <span class="info-cat-badge">Jobs</span>
+            </div>
+            <div class="info-title">Recruitment Scams</div>
+            <div class="info-desc">Beware of recruitment scams using the University of Helsinki's name — always verify through official channels.</div>
+            <div class="info-link">University of Helsinki <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          </a>
+        </div>
       </div>
+
+      <!-- SUBPAGE 2: FOR STUDENTS -->
+      <div id="info-sub-students" class="info-subpage">
+
+        <!-- Frank App Highlight -->
+        <div class="student-highlight reveal">
+          <div>
+            <span class="sh-eyebrow" style="margin-bottom:0.5rem">Digital Student Card &amp; Discounts</span>
+            <h3>Frank App for Students</h3>
+            <p>
+              If you are studying at a Finnish university or university of applied sciences (AMK), download the <strong>Frank App</strong> right after enrolling. It serves as your official digital student card across Finland and unlocks hundreds of student discounts on VR &amp; Matkahuolto long-distance trains and buses, HSL/regional public transport, UniCafe and campus meals, retail stores, and everyday services.
+            </p>
+            <a href="https://www.frank.fi/en/" target="_blank" class="btn btn-primary">
+              Visit Frank.fi
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:1.5rem">
+            <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:0.75rem">How to Get Started</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.65rem;font-size:0.86rem;color:rgba(255,255,255,0.8)">
+              <li>1. Join your student union and pay the student union fee.</li>
+              <li>2. Register on <a href="https://www.frank.fi/en/" target="_blank" style="color:var(--gold-pale);text-decoration:underline">frank.fi</a> with your Finnish university email.</li>
+              <li>3. Download the Frank App (iOS / Android) to activate your digital student ID.</li>
+              <li>4. Show the card for transport, food, and retail discounts nationwide.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Student Housing Heading -->
+        <div class="sh reveal" style="margin-bottom:2rem">
+          <span class="sh-eyebrow">Accommodation</span>
+          <h2 class="sh-title">Student Housing in Finland</h2>
+          <p class="sh-sub">Trusted platforms for newly arrived students looking for apartments, shared flats, or student housing across Finland.</p>
+        </div>
+
+        <div class="info-grid">
+          <a href="https://qasa.fi/en" target="_blank" class="info-card reveal delay-1">
+            <div class="info-cat-row">
+              <div class="info-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <span class="info-cat-badge">Housing</span>
+            </div>
+            <div class="info-title">Qasa</div>
+            <div class="info-desc">Safe and flexible rental marketplace in Finland offering verified furnished and unfurnished apartments, ideal for newcomers without a Finnish credit history.</div>
+            <div class="info-link">Visit Qasa.fi <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          </a>
+
+          <a href="https://hoas.fi/en/" target="_blank" class="info-card reveal delay-2">
+            <div class="info-cat-row">
+              <div class="info-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </div>
+              <span class="info-cat-badge">Student Housing</span>
+            </div>
+            <div class="info-title">HOAS (Helsinki Region)</div>
+            <div class="info-desc">Foundation for Student Housing in the Helsinki Region — affordable shared flats and studio apartments in Helsinki, Espoo, and Vantaa. Apply as soon as you get your admission letter.</div>
+            <div class="info-link">Visit Hoas.fi <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          </a>
+
+          <a href="https://soa.fi/en/" target="_blank" class="info-card reveal delay-3">
+            <div class="info-cat-row">
+              <div class="info-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              </div>
+              <span class="info-cat-badge">Nationwide</span>
+            </div>
+            <div class="info-title">SOA (All Finnish Cities)</div>
+            <div class="info-desc">Finnish Student Housing Association — find official regional student housing organizations across Finland (TOAS Tampere, TYS Turku, PSOAS Oulu, KOAS Jyväskylä, and more).</div>
+            <div class="info-link">Visit Soa.fi <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          </a>
+
+          <a href="https://www.vuokraovi.com/" target="_blank" class="info-card reveal delay-1">
+            <div class="info-cat-row">
+              <div class="info-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></svg>
+              </div>
+              <span class="info-cat-badge">Private Market</span>
+            </div>
+            <div class="info-title">Vuokraovi</div>
+            <div class="info-desc">One of Finland's largest rental portals listing private apartments, studios, and shared homes across all major cities.</div>
+            <div class="info-link">Visit Vuokraovi.com <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          </a>
+
+          <a href="https://asunnot.oikotie.fi/vuokra-asunnot" target="_blank" class="info-card reveal delay-2">
+            <div class="info-cat-row">
+              <div class="info-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </div>
+              <span class="info-cat-badge">Private Market</span>
+            </div>
+            <div class="info-title">Oikotie Asunnot</div>
+            <div class="info-desc">Popular Finnish property search platform with map-based filtering for rental apartments close to your campus or public transit.</div>
+            <div class="info-link">Visit Oikotie.fi <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          </a>
+
+          <a href="https://www.frank.fi/en/" target="_blank" class="info-card reveal delay-3">
+            <div class="info-cat-row">
+              <div class="info-icon-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              </div>
+              <span class="info-cat-badge">Discounts</span>
+            </div>
+            <div class="info-title">Frank App</div>
+            <div class="info-desc">Essential digital student card and discount platform for all university &amp; AMK students in Finland — save on travel, dining, and shopping.</div>
+            <div class="info-link">Visit Frank.fi <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          </a>
+        </div>
+      </div>
+
     </div>
   </section>
 </div><!-- /page-info -->
@@ -1405,6 +1608,17 @@
     return 'home';
   }
 
+  // ── Finland Info Subpages ────────────────────────────────
+  function switchInfoSubpage(sub) {
+    document.querySelectorAll('.info-subpage').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.subtab-btn').forEach(btn => btn.classList.remove('active'));
+    const target = document.getElementById('info-sub-' + sub);
+    const tab = document.getElementById('tab-' + sub);
+    if (target) target.classList.add('active');
+    if (tab) tab.classList.add('active');
+    setTimeout(() => observeReveal(), 50);
+  }
+
   // ── Finland Info filters ─────────────────────────────────
   let activeFilter = 'All';
   function setFilter(cat, btn) {
@@ -1439,8 +1653,13 @@
   });
 
   // ── Init ─────────────────────────────────────────────────
-  const initPage = location.hash.replace('#','') || 'home';
-  navigate(initPage, false);
+  const rawHash = location.hash.replace('#','');
+  if (rawHash === 'info-students' || rawHash === 'students') {
+    navigate('info', false);
+    switchInfoSubpage('students');
+  } else {
+    navigate(rawHash || 'home', false);
+  }
 </script>
 </body>
 </html>
